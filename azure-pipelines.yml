@@ -1,17 +1,27 @@
-# HTML
-# Archive your static HTML project and save it with the build record.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- main
+  - main  # or your branch name
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 steps:
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(build.sourcesDirectory)'
-    includeRootFolder: false
-- task: PublishBuildArtifacts@1
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
+    displayName: 'Use Node.js'
+
+  - script: |
+      npm install
+      npm run build
+    displayName: 'Install & Build React App'
+
+  - task: FtpUpload@2
+    inputs:
+      credentialsOption: 'inputs'
+      serverUrl: 'ftp://ftp.yourdomain.com'  # change to your actual domain
+      username: '$(ftpUsername)'
+      password: '$(ftpPassword)'
+      rootDirectory: '$(System.DefaultWorkingDirectory)/build'
+      remoteDirectory: '/public_html'  # or your correct folder
+      clean: false
+    displayName: 'FTP Deploy to GoDaddy'
