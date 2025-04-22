@@ -18,7 +18,7 @@ steps:
   - task: FtpUpload@2
     inputs:
       credentialsOption: 'inputs'
-      serverUrl: 'ftp://ftp.yourdomain.com'  # change to your actual domain
+      serverUrl: 'ftp.retrotreasures.in'  # change to your actual domain
       username: '$(ftpUsername)'
       password: '$(ftpPassword)'
       rootDirectory: '$(System.DefaultWorkingDirectory)/build'
