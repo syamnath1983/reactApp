@@ -22,6 +22,6 @@ steps:
       username: '$(ftpUsername)'
       password: '$(ftpPassword)'
       rootDirectory: '$(System.DefaultWorkingDirectory)/build'
-      remoteDirectory: '/public_html'  # or your correct folder
+      remoteDirectory: '/public_html/retrotreasures.in/reactApp'  # or your correct folder
       clean: false
     displayName: 'FTP Deploy to GoDaddy'
